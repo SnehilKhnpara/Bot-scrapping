@@ -1,0 +1,192 @@
+# Marketplace Automation Agent Configuration
+# Edit this file to configure the agent for your marketplace
+
+# Operating mode: DRY_RUN (simulation) or LIVE (real bidding)
+# IMPORTANT: Start with DRY_RUN to test before switching to LIVE
+mode: DRY_RUN
+
+# Run browser in headless mode (no visible window)
+headless: true
+
+# Marketplace settings - CUSTOMIZE FOR YOUR MARKETPLACE
+marketplace:
+  name: example_marketplace
+  base_url: https://example-marketplace.com
+  listings_url: https://example-marketplace.com/listings
+  login_url: https://example-marketplace.com/login
+
+  # Pagination settings
+  pagination_type: url_param  # url_param, button, or infinite_scroll
+  pagination_param: page
+  max_pages: 10
+  items_per_page: 50
+
+  # CSS Selectors - CUSTOMIZE FOR YOUR MARKETPLACE
+  login_selectors:
+    username_input: 'input[name="email"], input[name="username"]'
+    password_input: 'input[name="password"], input[type="password"]'
+    submit_button: 'button[type="submit"]'
+    login_success_indicator: '.user-menu, .logged-in'
+    login_error_indicator: '.error, .login-error'
+
+  listing_selectors:
+    listing_container: '.listing-item, .auction-item'
+    item_id: '[data-item-id]'
+    title: '.item-title, h2'
+    current_price: '.current-price, .bid-price'
+    seller_name: '.seller-name'
+    seller_rating: '.seller-rating'
+    condition: '.item-condition'
+
+  bid_selectors:
+    bid_input: 'input[name="bid"], #bid-amount'
+    bid_button: '.place-bid, #submit-bid'
+    confirm_button: '.confirm-bid'
+    success_indicator: '.bid-success'
+    error_indicator: '.bid-error'
+
+# Timing configuration
+timing:
+  min_action_delay: 1.0
+  max_action_delay: 3.0
+  page_load_timeout: 30000
+  between_pages_delay_min: 2.0
+  between_pages_delay_max: 4.0
+  session_refresh_interval: 3600
+
+# Quality filter settings
+filter:
+  # Seller requirements
+  min_seller_rating: 95.0
+  min_seller_feedback: 10
+
+  # Price range
+  min_price: 1.0
+  max_price: 500.0
+
+  # Item requirements
+  require_images: true
+  max_bid_count: 30
+
+  # Blacklisted categories (won't bid on these)
+  blacklisted_categories:
+    - adult
+    - weapons
+    - tobacco
+    - drugs
+
+  # Allowed categories (optional - if set, only these are allowed)
+  # allowed_categories:
+  #   - electronics
+  #   - collectibles
+
+  # Acceptable conditions
+  acceptable_conditions:
+    - new
+    - like_new
+    - very_good
+    - good
+
+# Scoring settings
+scoring:
+  # Minimum score to consider for bidding (0-100)
+  min_eligible_score: 60.0
+
+  # Component weights (should sum to 1.0)
+  weight_seller_trust: 0.20
+  weight_price_value: 0.25
+  weight_condition: 0.15
+  weight_competition: 0.15
+  weight_time_urgency: 0.10
+  weight_category_relevance: 0.15
+
+  # Category priorities (0-100, higher = more preferred)
+  category_priorities:
+    electronics: 80
+    collectibles: 70
+
+# Bidding settings - CRITICAL SAFETY LIMITS
+bidding:
+  # Budget limits
+  daily_budget: 100.0
+  weekly_budget: 500.0
+  per_item_max: 50.0
+
+  # Exposure limits
+  max_daily_exposure: 200.0
+  max_pending_bids: 10
+
+  # Bid increments
+  min_bid_increment: 0.50
+  bid_rounding: 0.01
+
+  # Risk multipliers
+  risk_multiplier_low: 1.0
+  risk_multiplier_medium: 0.85
+  risk_multiplier_high: 0.70
+  score_threshold: 60.0
+
+  # Value-based bidding
+  max_percent_of_value: 80.0
+  target_percent_of_value: 65.0
+
+  # Category-specific limits
+  # category_max_bids:
+  #   electronics: 75.0
+  # category_daily_limits:
+  #   electronics: 150.0
+
+# Notification settings
+notifications:
+  enabled: false
+
+  # Telegram notifications
+  telegram_enabled: false
+  telegram_bot_token: null
+  telegram_chat_id: null
+
+  # Email notifications
+  email_enabled: false
+  email_smtp_host: null
+  email_smtp_port: 587
+  email_from: null
+  email_to: []
+
+  # What to notify on
+  alert_on_bid: true
+  alert_on_win: true
+  alert_on_error: true
+  alert_on_exposure_warning: true
+  alert_on_hard_stop: true
+
+  # Rate limiting
+  min_alert_interval_seconds: 60
+  max_alerts_per_hour: 30
+
+  # Quiet hours (optional)
+  quiet_hours_enabled: false
+  quiet_hours_start: 22
+  quiet_hours_end: 7
+
+# Storage settings
+storage:
+  base_dir: data
+  raw_html_dir: raw
+  processed_dir: processed
+  reports_dir: reports
+  logs_dir: logs
+  save_raw_html: true
+  save_screenshots: true
+  log_retention_days: 30
+
+# Target configuration
+target_categories:
+  # - electronics
+  # - collectibles
+
+search_queries:
+  # - "vintage camera"
+  # - "rare coin"
+
+# How often to refresh listings (seconds)
+refresh_interval: 300
