@@ -1,0 +1,74 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# Environment & Credentials
+.env
+.env.local
+*.pem
+*.key
+credentials.json
+.marketplace_agent_salt
+
+# Data & Logs
+data/
+logs/
+*.log
+*.jsonl
+
+# Session Storage
+sessions/
+cookies.json
+
+# Test & Coverage
+.coverage
+.pytest_cache/
+htmlcov/
+.tox/
+
+# Build
+*.egg-info/
+.eggs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary
+*.tmp
+*.temp
+*.bak
